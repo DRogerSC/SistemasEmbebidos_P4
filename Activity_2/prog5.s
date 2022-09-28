@@ -58,7 +58,7 @@ main:
 	bl	scanf			@ respectively.
 
 @ OPERATION
-	Ldr r1, =n        @ print num formatted by output string.
+    Ldr r1, =n        @ print num formatted by output string.
     Ldr r1, [r1]
     Ldr r2, =op1
     Ldr r2, [r2]
@@ -95,7 +95,6 @@ MUL:	@Perform multiplication and jump to RES
 	
 DIV:
 
-
 	b RES
 
 @-----------------------------------------------------------------
@@ -124,11 +123,11 @@ RES:
 	
 	
 @ OPERATION
-	Ldr r1, =n        @ print num formatted by output string.
-    Ldr r1, [r1]
-    Ldr r2, =op1
+    @Ldr r1, =n        @ print num formatted by output string.
+    @Ldr r1, [r1]
+    Ldr r2, =op2
     Ldr r2, [r2]
-    Ldr r3, =m        @ print num formatted by output string.
+    Ldr r3, =k       @ print num formatted by output string.
     Ldr r3, [r3]
 
 @-----------------------------------------------------------------
@@ -148,28 +147,29 @@ RES:
 @-----------------------------------------------------------------
     
 ADD2:    @Perfmorm addition and jump to RES
-	add	r4, r1, r3      @ r4 = r1+r2
-	b RES
+	add	r1, r4, r3      @ r4 = r1+r2
+	b RESFINAL
 	
 SUB2:	@Perform substraction and jump to RES
-	sub r4, r1, r3
-	b RES
+	sub r1, r4, r3
+	b RESFINAL
 
 MUL2:	@Perform multiplication and jump to RES
-	mul r4, r1, r3
-	b RES
+	mul r1, r4, r3
+	b RESFINAL
 	
 DIV2:
 
 
-	b RES
+	b RESFINAL
 
 @-----------------------------------------------------------------
 
     
-	
+RESFINAL:	
 @ SEXTO PROMPT CON RESULTADO 
-    ldr r0, =string4
+    @mov r1, r4  @resultado esta en r4
+    ldr r0, =string6
     bl  printf    
 	
     pop {ip, pc}
